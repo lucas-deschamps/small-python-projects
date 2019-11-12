@@ -1,3 +1,4 @@
+from sys import exit
 from random import randint
 from textwrap import dedent
 
@@ -25,9 +26,14 @@ def defend(attacker, target):
     print(f"{target['Name']} ripostes {attacker['Name']} for {counter} damage.")
     display_hp(attacker)
 
+def player_death(character):
+    if character['Health'] <= 0:
+        print("You died.")
+        print("Game over.")
+        exit(0)
+
 
 name = input("\nInput your name:\n> ")
-
 
 my_character = {'Name' : name, 'Health' : 25}
 
@@ -44,7 +50,6 @@ display_hp(goblin)
 
 print("Goblin ambushes you...\n")
 
-
 while goblin['Health'] >= 1:
     action = input(dedent('''What will you do?
 * Attack
@@ -58,19 +63,13 @@ while goblin['Health'] >= 1:
         damage_hp(my_character, goblin)
         damage_hp(goblin, my_character)
 
-        if my_character['Health'] <= 0:
-            print("You died.")
-            print("Game over.")
-            exit(0)
+        player_death(my_character)
 
     elif action == 'defend':
         print("You assume a defensive stance.")
         defend(goblin, my_character)
 
-        if my_character['Health'] <= 0:
-            print("You died.")
-            print("Game over.")
-            exit(0)
+        player_death(my_character)
 
     elif action == 'run':
         print("You attempt to escape the battle.")
@@ -87,10 +86,7 @@ while goblin['Health'] >= 1:
 
         damage_hp(goblin, my_character)
 
-        if my_character['Health'] <= 0:
-            print("You died.")
-            print("Game over.")
-            exit(0)
+        player_death(my_character)
 
     else:
         print("Not a valid action.\n")
@@ -103,4 +99,4 @@ if defeated == True:
     exit(0)
 
 elif defeated != True:
-    print("You can't read this.")
+    print("You can't read this...")
