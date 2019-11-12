@@ -59,7 +59,7 @@ while goblin['Health'] >= 1:
 > ''')).lower()
 
     if action == 'attack':
-        print(f"You attack {goblin['Name']}...")
+        print(f"You attack {goblin['Name']}...\n")
         damage_hp(my_character, goblin)
         damage_hp(goblin, my_character)
 
